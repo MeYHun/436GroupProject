@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#EDDDB3"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".ProViewMainActivity">
 
 
     <LinearLayout
@@ -17,20 +17,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mRecycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" />=
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addingBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
-        android:src="@drawable/ic_add"
-        app:tint="@color/white" />
 
 </RelativeLayout>
