@@ -1,7 +1,9 @@
 package com.malkinfo.editingrecyclerview
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -11,16 +13,19 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.malkinfo.editingrecyclerview.model.TaskData
 import com.malkinfo.editingrecyclerview.model.ProData
+import com.malkinfo.editingrecyclerview.model.myProData
 import com.malkinfo.editingrecyclerview.view.TaskAdapter
 
 class ProViewMainActivity : AppCompatActivity() {
-    private lateinit var addsBtn:FloatingActionButton
+    private lateinit var addsBtn: Button
     private lateinit var recv:RecyclerView
     private lateinit var userList:ArrayList<TaskData>
     private lateinit var userAdapter:TaskAdapter
     private lateinit var proList:ArrayList<ProData>
+    private lateinit var myProList: ArrayList<myProData>
     private lateinit var myPro:ArrayList<ProData>
     private lateinit var mDatabase: DatabaseReference
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,11 +35,11 @@ class ProViewMainActivity : AppCompatActivity() {
         mDatabase = Firebase.database.reference
         userList = ArrayList()
         proList = ArrayList()
+        myProList = ArrayList()
         myPro = ArrayList()
         var proName:String
         var proEmail:String
         var proDescription:String
-
         mDatabase.child("Pros").get().addOnSuccessListener{
             for (pro in it.children){
                 proName = pro.child("proName").value.toString()
@@ -46,16 +51,12 @@ class ProViewMainActivity : AppCompatActivity() {
             addsBtn = findViewById(R.id.reviewbtn)
             recv = findViewById(R.id.mRecycler)
             /**set Adapter*/
-            userAdapter = TaskAdapter(this, mDatabase, proList)
+            userAdapter = TaskAdapter(this, mDatabase, myProList, proList)
             /**setRecycler view Adapter*/
             recv.layoutManager = LinearLayoutManager(this)
 
             recv.adapter = userAdapter
             addsBtn.setOnClickListener {review()}
-        }
-
-        private fun review(){
-
         }
 
 //        proList.add(ProData("Helen Keller",
@@ -71,5 +72,11 @@ class ProViewMainActivity : AppCompatActivity() {
         /**set Dialog*/
 
     }
+
+    private fun review() {
+        var intent = Intent(this,MyProViewMainActivity::class.java)
+        startActivity(intent)
+    }
+
 
 }

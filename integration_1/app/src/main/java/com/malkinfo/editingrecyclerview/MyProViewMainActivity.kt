@@ -14,14 +14,17 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.malkinfo.editingrecyclerview.model.ProData
 import com.malkinfo.editingrecyclerview.model.TaskData
+import com.malkinfo.editingrecyclerview.model.myProData
 import com.malkinfo.editingrecyclerview.view.TaskAdapter
+import com.malkinfo.editingrecyclerview.view.myTaskAdapter
 
 class MyProViewMainActivity : AppCompatActivity() {
     private lateinit var addsBtn:FloatingActionButton
     private lateinit var recv:RecyclerView
     private lateinit var userList:ArrayList<TaskData>
-    private lateinit var userAdapter:TaskAdapter
+    private lateinit var userAdapter:myTaskAdapter
     private lateinit var proList:ArrayList<ProData>
+    private lateinit var myProList:ArrayList<myProData>
     private lateinit var myPro:ArrayList<ProData>
     private lateinit var mDatabase: DatabaseReference
 
@@ -33,6 +36,7 @@ class MyProViewMainActivity : AppCompatActivity() {
         mDatabase = Firebase.database.reference
         userList = ArrayList()
         proList = ArrayList()
+        myProList = ArrayList()
         myPro = ArrayList()
         var proName: String
         var proEmail: String
@@ -48,7 +52,7 @@ class MyProViewMainActivity : AppCompatActivity() {
             println("-----" + proList + "-----")
             recv = findViewById(R.id.mRecycler)
             /**set Adapter*/
-            userAdapter = TaskAdapter(this, mDatabase, proList)
+            userAdapter = myTaskAdapter(this, mDatabase, myProList, proList)
             /**setRecycler view Adapter*/
             recv.layoutManager = LinearLayoutManager(this)
 

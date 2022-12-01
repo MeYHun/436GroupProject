@@ -57,7 +57,7 @@ class myTaskAdapter(val c:Context, val mdatabase: DatabaseReference, val myProLi
                                 myProList[adapterPosition].proName = position.proName
                                 myProList[adapterPosition].proDescription = position.proDescription
                                 myProList[adapterPosition].proEmail = position.proEmail
-                                mdatabase.child("myPros").child("myPro" + counter.toString())
+                                mdatabase.child("myPros").child("myPro" + adapterPosition.toString())
                                     .setValue(
                                         myProData(
                                             myProList[adapterPosition].proName,
@@ -101,7 +101,7 @@ class myTaskAdapter(val c:Context, val mdatabase: DatabaseReference, val myProLi
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         // Inflate the custom layout
-        val proView = inflater.inflate(R.layout.list_item, parent, false)
+        val proView = inflater.inflate(R.layout.review_list_item, parent, false)
         // Return a new holder instance
         return UserViewHolder(proView)
     }

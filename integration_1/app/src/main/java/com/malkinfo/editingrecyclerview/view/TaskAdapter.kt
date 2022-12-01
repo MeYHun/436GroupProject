@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
 import com.malkinfo.editingrecyclerview.R
 import com.malkinfo.editingrecyclerview.model.ProData
+import com.malkinfo.editingrecyclerview.model.myProData
 
 
-
-class TaskAdapter(val c:Context, val mdatabase: DatabaseReference, val proList:ArrayList<ProData>):RecyclerView.Adapter<TaskAdapter.UserViewHolder>()
+class TaskAdapter(val c:Context, val mdatabase: DatabaseReference, val myProList: ArrayList<myProData>, val proList:ArrayList<ProData>):RecyclerView.Adapter<TaskAdapter.UserViewHolder>()
 {
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
@@ -41,7 +41,6 @@ class TaskAdapter(val c:Context, val mdatabase: DatabaseReference, val proList:A
             popupMenus.setOnMenuItemClickListener {
                 when(it.itemId){
                     R.id.select->{
-                        /**set delete*/
                         AlertDialog.Builder(c)
                             .setTitle("Select")
                             .setIcon(R.drawable.ic_warning)
@@ -50,9 +49,10 @@ class TaskAdapter(val c:Context, val mdatabase: DatabaseReference, val proList:A
                                     dialog,_->
 //                                mdatabase.add(ProData(proList[adapterPosition].proName,proList[adapterPosition].proEmail, proList[adapterPosition].proDescription))
 //                                println(myPro)
-                                mdatabase.child("myPros").child("Pro"+counter.toString()).setValue(
-                                    ProData(proList[adapterPosition].proName, proList[adapterPosition].proEmail, proList[adapterPosition].proDescription)
+                                mdatabase.child("myPros").child("myPro"+adapterPosition.toString()).setValue(
+                                    myProData(proList[adapterPosition].proName, proList[adapterPosition].proEmail, proList[adapterPosition].proDescription, "", 0F)
                                 )
+                                counter += 1
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"Pro Selected",Toast.LENGTH_SHORT).show()
                                 dialog.dismiss()
