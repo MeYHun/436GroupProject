@@ -5,12 +5,13 @@
     <item
         android:id="@+id/select"
         android:title="select"
-        android:icon="@drawable/ic_delete"
+        android:icon="@drawable/ic_select"
         />
+
     <item
-        android:id="@+id/review"
-        android:title="review"
-        android:icon="@drawable/ic_edit"
+        android:id="@+id/details"
+        android:title="details"
+        android:icon="@drawable/ic_details"
         />
 
 </menu>

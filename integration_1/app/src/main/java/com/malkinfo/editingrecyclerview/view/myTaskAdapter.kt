@@ -46,7 +46,7 @@ class myTaskAdapter(val c:Context, val mdatabase: DatabaseReference, val myProLi
 //            proReview.setText(myProList[adapterPosition].proReview)
 //            proRating.setRating(myProList[adapterPosition].proRating)
             val popupMenus = PopupMenu(c,v)
-            popupMenus.inflate(R.menu.show_menu)
+            popupMenus.inflate(R.menu.review_show_menu)
             popupMenus.setOnMenuItemClickListener {
                 when(it.itemId) {
                     R.id.review -> {
