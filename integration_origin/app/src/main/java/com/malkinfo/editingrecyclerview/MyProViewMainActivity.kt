@@ -2,7 +2,6 @@ package com.malkinfo.editingrecyclerview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.Toast
@@ -42,26 +41,18 @@ class MyProViewMainActivity : AppCompatActivity() {
         var proName: String
         var proEmail: String
         var proDescription: String
-        var proReview: String
 
         mDatabase.child("myPros").get().addOnSuccessListener {
             for (pro in it.children) {
                 proName = pro.child("proName").value.toString()
-                proEmail = pro.child("proEmail").value.toString()
-                proDescription = pro.child("proDescription").value.toString()
-                proReview = pro.child("proReview").value.toString()
-//                Log.d("debug", "HIHIHIHIHIHIHIHI"+ ()
-                myProList.add(myProData(proName, proEmail, proDescription, proReview,
-                    pro.child("proRating").value.toString().toFloat()
-                )
-                )
+                proEmail = "Email: " + pro.child("proEmail").value.toString()
+                proDescription = "Description: " + pro.child("proDescription").value.toString()
+                proList.add(ProData(proName, proEmail, proDescription))
             }
-
-            println("-----" + myProList + "-----")
+            println("-----" + proList + "-----")
             recv = findViewById(R.id.mRecycler)
             /**set Adapter*/
             userAdapter = myTaskAdapter(this, mDatabase, myProList, proList)
-
             /**setRecycler view Adapter*/
             recv.layoutManager = LinearLayoutManager(this)
 

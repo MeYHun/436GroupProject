@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -24,7 +23,7 @@
             android:padding="4dp">
 
             <TextView
-                android:id="@+id/mTitle1"
+                android:id="@+id/mTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
@@ -34,7 +33,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/mSubTitle1"
+                android:id="@+id/mSubTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
@@ -44,7 +43,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/mDescription1"
+                android:id="@+id/mDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
@@ -52,40 +51,10 @@
                 android:textColor="@android:color/darker_gray"
                 android:textSize="15sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/mReview1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="6dp"
-                android:text="Review"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/mRating1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="6dp"
-                android:text="Rating"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-
-            <!--            <RatingBar-->
-<!--                android:id="@+id/mRating1"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="6dp"-->
-<!--                android:numStars="5"-->
-<!--                android:stepSize="0.5"-->
-<!--                tools:ignore="SpeakableTextPresentCheck" />-->
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/mMenus1"
+            android:id="@+id/mMenus"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"

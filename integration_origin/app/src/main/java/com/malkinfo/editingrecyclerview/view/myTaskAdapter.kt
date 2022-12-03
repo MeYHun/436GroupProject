@@ -2,7 +2,6 @@ package com.malkinfo.editingrecyclerview.view
 
 import android.app.AlertDialog
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +25,7 @@ class myTaskAdapter(val c:Context, val mdatabase: DatabaseReference, val myProLi
         var proEmail:TextView
         var proDescription:TextView
         var proReview:TextView
-        var proRating:TextView
+        var proRating:RatingBar
         var mMenus:ImageView
         var counter:Int
 
@@ -35,48 +34,29 @@ class myTaskAdapter(val c:Context, val mdatabase: DatabaseReference, val myProLi
             proEmail = itemView.findViewById<TextView>(R.id.mSubTitle1)
             proDescription = itemView.findViewById<TextView>(R.id.mDescription1)
             proReview = itemView.findViewById<TextView>(R.id.mReview1)
-            proRating = itemView.findViewById<TextView>(R.id.mRating1)
+            proRating = itemView.findViewById<RatingBar>(R.id.mRating1)
             mMenus = itemView.findViewById<ImageView>(R.id.mMenus1)
             mMenus.setOnClickListener { popupMenus(it) }
             counter = 0
         }
-
         private fun popupMenus(v:View) {
-            val position = myProList[adapterPosition]
-//            proReview.setText(myProList[adapterPosition].proReview)
-//            proRating.setRating(myProList[adapterPosition].proRating)
+            val position = proList[adapterPosition]
             val popupMenus = PopupMenu(c,v)
             popupMenus.inflate(R.menu.show_menu)
             popupMenus.setOnMenuItemClickListener {
                 when(it.itemId) {
                     R.id.review -> {
-//                        val d = LayoutInflater.from(c).inflate(R.layout.review_list_item, null)
                         val v = LayoutInflater.from(c).inflate(R.layout.add_item, null)
                         val review = v.findViewById<EditText>(R.id.proReview)
                         val rating = v.findViewById<RatingBar>(R.id.proRating)
-
-                        Log.d("debug", "before review ${review.text} , rating ${rating.rating}")
                         AlertDialog.Builder(c)
                             .setView(v)
                             .setPositiveButton("Ok") { dialog, _ ->
-                                Log.d("debug", "positive button clicked")
-//                                val rev = review.text.toString()
-//                                val rat = rating.rating
-//
-//                                d.findViewById<TextView>(R.id.mReview1).setText(rev)
-//                                d.findViewById<RatingBar>(R.id.mRating1).setRating(rat)
-//                                proReview.setText(myProList[adapterPosition].proReview)
-//                                proRating.setRating(myProList[adapterPosition].proRating)
                                 myProList[adapterPosition].proReview = review.text.toString()
                                 myProList[adapterPosition].proRating = rating.rating
                                 myProList[adapterPosition].proName = position.proName
                                 myProList[adapterPosition].proDescription = position.proDescription
                                 myProList[adapterPosition].proEmail = position.proEmail
-
-//                                proReview.setText(myProList[adapterPosition].proReview)
-//                                proRating.setRating(myProList[adapterPosition].proRating)
-                                Log.d("debug", "Inside positive button"+
-                                        myProList[adapterPosition].proRating.toString()+myProList[adapterPosition].proReview)
                                 mdatabase.child("myPros").child("myPro" + adapterPosition.toString())
                                     .setValue(
                                         myProData(
@@ -87,17 +67,13 @@ class myTaskAdapter(val c:Context, val mdatabase: DatabaseReference, val myProLi
                                             myProList[adapterPosition].proRating
                                         )
                                     )
-//                                proReview.setText(myProList[adapterPosition].proReview)
-//                                proRating.setRating(myProList[adapterPosition].proRating)
                                 notifyDataSetChanged()
-                                Log.d("debug2", "Inside positive button2"+proRating.toString()+proReview)
                                 Toast.makeText(c, "User Information is Edited", Toast.LENGTH_SHORT)
                                     .show()
                                 dialog.dismiss()
-                                Log.d("debug", "review2 ${review.text} , rating ${rating.rating}")
+
                             }
                             .setNegativeButton("Cancel") { dialog, _ ->
-                                Log.d("debug", "negative button clicked")
                                 dialog.dismiss()
 
                             }
@@ -109,8 +85,6 @@ class myTaskAdapter(val c:Context, val mdatabase: DatabaseReference, val myProLi
                     else -> true
                 }
             }
-
-
             popupMenus.show()
             val popup = PopupMenu::class.java.getDeclaredField("mPopup")
             popup.isAccessible = true
@@ -134,17 +108,14 @@ class myTaskAdapter(val c:Context, val mdatabase: DatabaseReference, val myProLi
 
     // Involves populating data into the item through holder
     override fun onBindViewHolder(viewHolder: myTaskAdapter.UserViewHolder, position: Int) {
-        viewHolder.proName.text = myProList[position].proName.toString()
-        viewHolder.proEmail.text = myProList[position].proEmail.toString()
-        viewHolder.proDescription.text = myProList[position].proDescription.toString()
-        viewHolder.proReview.text = "Review: " +myProList[position].proReview
-        viewHolder.proRating.text = "Rating: " +myProList[position].proRating.toString()
-
+        viewHolder.proName.text = proList[position].proName.toString()
+        viewHolder.proEmail.text = proList[position].proEmail.toString()
+        viewHolder.proDescription.text = proList[position].proDescription.toString()
     }
 
     // Returns the total count of items in the list
     override fun getItemCount(): Int {
-        return myProList.size
+        return proList.size
     }
 
 
