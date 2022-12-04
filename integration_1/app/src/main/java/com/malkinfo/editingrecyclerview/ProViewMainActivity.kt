@@ -6,12 +6,11 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.database.DataSnapshot
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.malkinfo.editingrecyclerview.model.TaskData
+import com.malkinfo.editingrecyclerview.model.UserData
 import com.malkinfo.editingrecyclerview.model.ProData
 import com.malkinfo.editingrecyclerview.model.myProData
 import com.malkinfo.editingrecyclerview.view.TaskAdapter
@@ -19,18 +18,32 @@ import com.malkinfo.editingrecyclerview.view.TaskAdapter
 class ProViewMainActivity : AppCompatActivity() {
     private lateinit var addsBtn: Button
     private lateinit var recv:RecyclerView
-    private lateinit var userList:ArrayList<TaskData>
+    private lateinit var userList:ArrayList<UserData>
     private lateinit var userAdapter:TaskAdapter
     private lateinit var proList:ArrayList<ProData>
     private lateinit var myProList: ArrayList<myProData>
     private lateinit var myPro:ArrayList<ProData>
     private lateinit var mDatabase: DatabaseReference
+    val user = Firebase.auth.currentUser
+    private lateinit var name: String
+    private lateinit var email: String
+    private lateinit var uid: String
+
+
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        user?.let {
+            name = user.displayName.toString()
+            email = user.email.toString()
+            uid = user.uid
+        }
+
         /**set List*/
         mDatabase = Firebase.database.reference
         userList = ArrayList()
@@ -47,11 +60,13 @@ class ProViewMainActivity : AppCompatActivity() {
                 proDescription = "Description: " + pro.child("proDescription").value.toString()
                 proList.add(ProData(proName, proEmail, proDescription))
             }
+            userList.add(UserData(name, email, uid, false))
+
             println("-----"+proList+"-----")
             addsBtn = findViewById(R.id.reviewbtn)
             recv = findViewById(R.id.mRecycler)
             /**set Adapter*/
-            userAdapter = TaskAdapter(this, mDatabase, myProList, proList)
+            userAdapter = TaskAdapter(this, mDatabase, myProList, proList, UserData(name, email, uid, false) ,userList)
             /**setRecycler view Adapter*/
             recv.layoutManager = LinearLayoutManager(this)
 

@@ -10,10 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
 import com.malkinfo.editingrecyclerview.R
 import com.malkinfo.editingrecyclerview.model.ProData
+import com.malkinfo.editingrecyclerview.model.UserData
 import com.malkinfo.editingrecyclerview.model.myProData
 
 
-class TaskAdapter(val c:Context, val mdatabase: DatabaseReference, val myProList: ArrayList<myProData>, val proList:ArrayList<ProData>):RecyclerView.Adapter<TaskAdapter.UserViewHolder>()
+class TaskAdapter(
+    val c: Context,
+    val mdatabase: DatabaseReference,
+    val myProList: ArrayList<myProData>,
+    val proList: ArrayList<ProData>,
+    val user: UserData,
+    val userList: ArrayList<UserData>
+):RecyclerView.Adapter<TaskAdapter.UserViewHolder>()
 {
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
@@ -52,6 +60,14 @@ class TaskAdapter(val c:Context, val mdatabase: DatabaseReference, val myProList
                                 mdatabase.child("myPros").child("myPro"+adapterPosition.toString()).setValue(
                                     myProData(proList[adapterPosition].proName, proList[adapterPosition].proEmail, proList[adapterPosition].proDescription, "", 0F)
                                 )
+                                if (userList.contains(user)) {
+                                    mdatabase.child("Users")
+                                        .child("user" + adapterPosition.toString()).setValue(
+                                        user
+                                    )
+                                    userList.remove(user)
+                                    userList.add(UserData(user.name, user.email, user.UID, true))
+                                }
                                 counter += 1
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"Pro Selected",Toast.LENGTH_SHORT).show()
