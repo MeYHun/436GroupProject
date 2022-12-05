@@ -30,9 +30,6 @@ class ProViewMainActivity : AppCompatActivity() {
     private lateinit var uid: String
 
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -74,14 +71,6 @@ class ProViewMainActivity : AppCompatActivity() {
             addsBtn.setOnClickListener {review()}
         }
 
-//        proList.add(ProData("Helen Keller",
-//            "Email: hkeller@terpmail.umd.edu",
-//            "Description: I am the best teacher for def and blind." +
-//                    " I have those disabilities and am fairly confident that no one can teach better than I can"))
-//        proList.add(ProData("Lionel Messi",
-//            "Email: lmessi@terpmail.umd.edu",
-//            "Description: I am the best soccer player" +
-//                " I not only have talent but also have good work ethics. With me, you can learn what the best people with best talent can achieve"))
         /**set find Id*/
 
         /**set Dialog*/

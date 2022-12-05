@@ -2,6 +2,7 @@ package com.malkinfo.editingrecyclerview.view
 
 import android.app.AlertDialog
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,19 +56,10 @@ class TaskAdapter(
                             .setMessage("Are you sure you want to select this Pro")
                             .setPositiveButton("Yes"){
                                     dialog,_->
-//                                mdatabase.add(ProData(proList[adapterPosition].proName,proList[adapterPosition].proEmail, proList[adapterPosition].proDescription))
-//                                println(myPro)
-                                mdatabase.child("myPros").child("myPro"+adapterPosition.toString()).setValue(
-                                    myProData(proList[adapterPosition].proName, proList[adapterPosition].proEmail, proList[adapterPosition].proDescription, "", 0F)
+                                mdatabase.child("Users").child(user.UID).child("myPros").child(proList[adapterPosition].proName).setValue(
+                                    myProData(proList[adapterPosition].proName, proList[adapterPosition].proEmail, proList[adapterPosition].proDescription, "Not Performed", 0F)
                                 )
-                                if (userList.contains(user)) {
-                                    mdatabase.child("Users")
-                                        .child("user" + adapterPosition.toString()).setValue(
-                                        user
-                                    )
-                                    userList.remove(user)
-                                    userList.add(UserData(user.name, user.email, user.UID, true))
-                                }
+//
                                 counter += 1
                                 notifyDataSetChanged()
                                 Toast.makeText(c,"Pro Selected",Toast.LENGTH_SHORT).show()

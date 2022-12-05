@@ -22,15 +22,15 @@
 
     <Button
         android:id="@+id/reviewbtn"
-        android:layout_width="188dp"
-        android:layout_height="67dp"
+        android:layout_width="397dp"
+        android:layout_height="71dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
-        android:text="Click to View My Pros" />
+        android:text="Click this button to View My Pros or three dots to select the pros" />
 
 
 </RelativeLayout>
