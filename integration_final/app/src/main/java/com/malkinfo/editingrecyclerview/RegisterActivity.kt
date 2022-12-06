@@ -13,6 +13,7 @@ import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
+    private var validator = Validators()
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -42,6 +43,14 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT).show()
             return
         }
+        if (!validator.validEmail(email.text.toString())) {
+            Toast.makeText(this,"Please fill @terpmail.umd.edu",
+                Toast.LENGTH_SHORT).show()
+
+            return
+        }
+
+
         val inputEmail = email.text.toString()
         val inputPassword = passwod.text.toString()
 
@@ -69,4 +78,5 @@ class RegisterActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT).show()
             }
     }
+
 }
